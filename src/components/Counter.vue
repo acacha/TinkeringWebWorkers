@@ -21,12 +21,17 @@ export default {
   methods: {
     startWorker: function () {
       console.log('start Worker')
+      var component = this
       if (typeof (Worker) !== 'undefined') {
+        console.log('1')
         if (typeof (w) === 'undefined') {
+          console.log('2')
           w = new Worker('/static/js/counter.js')
         }
         w.onmessage = function (event) {
-          this.counter = event.data
+          console.log('3')
+          console.log('received data: ' + event.data)
+          component.counter = event.data
         }
       } else {
         console.log('Sorry! No Web Worker support.')
