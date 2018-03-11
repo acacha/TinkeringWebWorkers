@@ -9,7 +9,7 @@
 
 <script>
 
-var w
+let w
 
 export default {
   name: 'counter',
@@ -21,17 +21,13 @@ export default {
   methods: {
     startWorker: function () {
       console.log('start Worker')
-      var component = this
       if (typeof (Worker) !== 'undefined') {
-        console.log('1')
         if (typeof (w) === 'undefined') {
-          console.log('2')
           w = new Worker('/static/js/counter.js')
         }
-        w.onmessage = function (event) {
-          console.log('3')
+        w.onmessage = (event) => {
           console.log('received data: ' + event.data)
-          component.counter = event.data
+          this.counter = event.data
         }
       } else {
         console.log('Sorry! No Web Worker support.')
